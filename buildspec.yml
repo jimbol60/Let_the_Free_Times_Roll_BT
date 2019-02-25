@@ -11,4 +11,4 @@ phases:
       - npm run build -prod
   post_build:
     commands:
-      - aws --region us-west-2 s3 sync ./dist/ s3://example-goodtimesroll/ --acl=public-read --delete
+      - aws --region us-west-2 s3 sync ./dist/ s3://example-goodtimesroll-2/ --acl=public-read --delete
