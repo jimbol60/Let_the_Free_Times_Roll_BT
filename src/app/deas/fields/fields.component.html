@@ -1,0 +1,21 @@
+<!--Loading-->
+<div class="mt-3" *ngIf="isLoading">
+    <gci-loading-bar [loadingMessage]="'Loading Fields'"></gci-loading-bar>
+</div>
+
+<div *ngIf="!isLoading">
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4 class="card-title">Fields</h4>
+        </div>
+        <div class="card-body">
+            <gci-object-table [objects]="fields"
+                              [columnsToDisplay]="tableColumns"
+                              (createNew)="onCreateNew()"
+                              (updateOne)="onUpdate($event)">
+            </gci-object-table>
+        </div>
+    </div>
+</div>
+
+

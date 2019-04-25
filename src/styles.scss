@@ -1,0 +1,276 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// ---------------------------------------------------------------------------------------------- Application Custom CSS
+
+$app-bkgrnd-color: lightgrey;
+
+body {
+  background-color: $app-bkgrnd-color;
+}
+
+/*
+This fills the remaining space, by using flexbox.
+Every toolbar row uses a flexbox row layout.
+*/
+.flex-fill {
+  flex: 1 1 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/**
+Use on elements to align icons with text
+
+Example use:
+<button type="button" class="btn btn-primary" (click)="doSomethingAwesome()">
+  <div class="vert-align-center">
+    <i class="material-icons">awesome_icon</i>
+    <span>Awesome</span>
+  </div>
+</button>
+ */
+.vert-align-center {
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+}
+
+$nav-height: 45px;
+
+/**
+Keep here, don't move to the main-nav.component.scss!!!
+This is here to take advantage of .scss and use the common $nav-height variable.
+ */
+.main-nav {
+  min-height: $nav-height !important;
+  height: $nav-height !important;
+  z-index: 50;
+  position: fixed;
+}
+
+/*padding here corrects the fixed nav overlap issue */
+.main-nav-top-fix {
+  padding-top: $nav-height;
+}
+
+/**
+Use this to preserve the spacing of something like a textarea where the user may have line breaks in a multi-line text
+ */
+.keep-whitespace {
+  white-space: pre-wrap;
+}
+
+/**
+Common muted text color for application
+ */
+.text-muted {
+  color: darkgrey;
+}
+
+
+// --------------------- Styles for angular2-prettyjson
+// https://www.npmjs.com/package/angular2-prettyjson
+pre span {white-space: normal;}
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+
+// [ ] TODO GB20181208084655: If these css customizations become large enough, I should move them to their own files
+// ---------------------------------------------------------------------------------------------------- Custom Bootstrap
+
+// -------------------------------------------------------------------------------------------- Buttons
+.btn-width-1 {
+  width: 80px !important;
+}
+
+.btn[disabled] {
+  background-color: lightgray;
+  border-color: darkgray;
+  outline: 0 none;
+  color: white;
+}
+
+// --------------------------------------------------------------------------------------------- Custom Angular Material
+
+//mat-error {
+//  color: #dc3545 !important; // -- bootstrap danger
+//  font-size: small;
+//}
+
+// ---------------------------------------------------------------------------------------------------------- mat-dialog
+.no-padding-dialog .mat-dialog-container {
+  padding: 0em !important;
+}
+/**
+Found the following css which makes it so that the bottom of the dialog is not 33% whitespace
+https://github.com/angular/material2/issues/4574
+ */
+.mat-dialog-container {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.mat-dialog-container > * {
+  display: flex;
+  flex-direction: column;
+  //height: 90vh;  // open dialogs with a default of 90vh so that text areas can be expanded
+  max-height: 90vh;
+  max-width: 80vw;
+}
+
+.mat-dialog-content {
+  max-height: inherit !important;
+}
+
+.mat-dialog-actions {
+  display: block !important;
+  flex-grow: inherit;
+  flex-shrink: inherit;
+  padding: 12px 0 0 !important;
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+// ---------------------------------------------------------------------------------- Angular Material CDK Drag and drop
+/**
+Drag and Drop (dnd) comes from the Angular Material Component Developer Kit (CDK)
+https://material.angular.io/cdk/drag-drop/overview
+
+This set off css is designed for use with a sortable list of options.
+For examples of use and formatting, see:
+  * app/edit-form/build.component.html
+  * app/edit-form/shared/question-dialog.component.html
+  * app/edit-form/configure.component.html
+
+
+ */
+
+.dnd-list {
+  width: 100%;
+  border: solid 1px #ccc;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dnd-box {
+  width: 100%;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: white;
+  font-size: 14px;
+}
+
+.dnd-handle {
+  color: #ccc;
+  cursor: move;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+}
+
+.dnd-body {
+  width: 100%;
+}
+
+.dnd-box:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dnd-box:last-child {
+  border: none;
+}
+
+.dnd-list.cdk-drop-list-dragging .dnd-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// --------------------------------------------------------------------------------------- Angular Material SnackBar CSS
+/**
+Must be listed here in styles.scss for the Angular Material component to find it
+ */
+.snackAlert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.snackAlert-success hr {
+  border-top-color: #b1dfbb;
+}
+
+.snackAlert-success .alert-link {
+  color: #0b2e13;
+}
+
+.snackAlert-info {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+.snackAlert-info hr {
+  border-top-color: #abdde5;
+}
+
+.snackAlert-info .alert-link {
+  color: #062c33;
+}
+
+.snackAlert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.snackAlert-warning hr {
+  border-top-color: #ffe8a1;
+}
+
+.snackAlert-warning .alert-link {
+  color: #533f03;
+}
+
+.snackAlert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.snackAlert-danger hr {
+  border-top-color: #f1b0b7;
+}
+
+.snackAlert-danger .alert-link {
+  color: #491217;
+}

@@ -1,0 +1,36 @@
+<mat-toolbar *ngIf="isLoggedIn$ | async">
+
+    <mat-toolbar-row>
+
+        <span matTooltip="Context fields determine where objects in the system are graphed to when created and which objects are displayed when queried."
+              [matTooltipClass]="{'fieldToolTip': showToolTipClass}">Context Fields &nbsp;</span>
+
+        <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList>
+                <mat-chip *ngFor="let field of contextFields" [selectable]="selectable"
+                          [removable]="removable" (removed)="removeField(field)">
+                    {{field.Summary | truncate: 20}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Enter field..."
+                       [formControl]="fieldsControl"
+                       [matAutocomplete]="auto"
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="true"
+                       (matChipInputTokenEnd)="addField($event)">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let field of filteredFields | async" [value]="field">
+                        {{field.Summary}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-chip-list>
+        </mat-form-field>
+
+        <button mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+    </mat-toolbar-row>
+
+</mat-toolbar>

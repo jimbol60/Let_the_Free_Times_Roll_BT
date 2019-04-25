@@ -1,0 +1,9 @@
+.example-chip-list {
+  width: 100%;
+}
+
+/deep/ .fieldToolTip {
+  background-color: lightblue;
+  color: black !important;
+  font-size: medium;
+}

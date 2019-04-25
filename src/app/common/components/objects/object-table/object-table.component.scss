@@ -1,0 +1,83 @@
+.component-background {
+  background-color: white;
+}
+
+// container needed to prevent table from overflowing containing element when page size is adjusted
+.table-container {
+  overflow: auto;
+  max-height: 70vh;
+}
+
+.mat-table-custom {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-paginator-custom {
+  margin: 0;
+  //padding: 0;
+  //max-height: 20px;
+}
+
+.mat-header-cell {
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  border-top: 0;
+}
+
+.mat-cell {
+  font-size: 1rem;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.mat-row {
+  min-height: 65px;
+
+  &.selected {
+    background: yellow;
+  }
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mat-column-select {
+  width: 50px;
+  padding: 0;
+  margin-left: 0;
+}
+
+.mat-column-UID {
+  flex: 0 0 100px !important;
+  white-space: nowrap;
+  font-family: "Courier New";
+  font-size: 8pt;
+}
+.mat-column-Summary {
+  //margin-left: 20px;
+  width: 40%
+}
+.mat-column-Detail {
+  justify-content: flex-end;
+  width: 40%
+}
+
+.mat-column-CreatedAt {
+  //font-size: 8pt;
+}
+
+.mat-header-row {
+  position: sticky;
+  position: -webkit-sticky; /*for Safari browsers*/
+  top: 0;
+  background-color: inherit;
+  z-index: 1;
+}
+
+.filter{
+  width: 100%
+}

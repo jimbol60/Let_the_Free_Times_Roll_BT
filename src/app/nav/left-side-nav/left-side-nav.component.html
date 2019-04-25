@@ -1,0 +1,46 @@
+
+<button mat-menu-item class="btn btn-light btn-sm" [mat-menu-trigger-for]="createMenu">
+    <mat-icon>add</mat-icon>
+    <span>New</span>
+</button>
+
+<button mat-menu-item class="btn btn-light btn-sm" (click)="goToFields()" >
+    <mat-icon>blur_on</mat-icon>
+    <span>Fields</span>
+</button>
+
+<button mat-menu-item class="btn btn-light btn-sm" (click)="goToTasks()" >
+    <mat-icon>assignment</mat-icon>
+    <span>Task</span>
+</button>
+
+<button mat-menu-item class="btn btn-light btn-sm" (click)="goToProjects()" >
+    <mat-icon>class</mat-icon>
+    <span>Project</span>
+</button>
+
+<button mat-menu-item class="btn btn-light btn-sm" (click)="goToIdeas()" >
+    <mat-icon>web</mat-icon>
+    <span>Ideas</span>
+</button>
+
+<button mat-menu-item class="btn btn-light btn-sm" [mat-menu-trigger-for]="accountMenu">
+    <mat-icon>supervisor_account</mat-icon>
+    <span>Accounts</span>
+</button>
+
+<mat-menu #createMenu="matMenu" [overlapTrigger]="false">
+
+    <button mat-menu-item (click)="closeSidenav()" >
+        <mat-icon>note_add</mat-icon>
+        <span>Note</span>
+    </button>
+
+</mat-menu>
+
+<mat-menu #accountMenu="matMenu">
+    <div *ngFor="let acct of accts" class="vert-align-center mx-2">
+        {{acct.Summary}}
+        <mat-icon *ngIf="acct.UID === currentAcctUID">check_box</mat-icon>
+    </div>
+</mat-menu>

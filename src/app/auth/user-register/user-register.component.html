@@ -1,0 +1,269 @@
+<div class="register-container mt-3">
+
+    <mat-card class="register-card">
+        <mat-card-header>
+            <!--<div mat-card-avatar class="register-card-header"></div>-->
+            <mat-card-title>Register</mat-card-title>
+            <mat-card-subtitle>
+                Create a new account with gcideas by completing the required (<span class="themeAccent">*</span>) fields below
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+
+            <form [formGroup]="userForm" class="register-form">
+
+                <div class="container-fluid">
+
+                    <!--Accept Terms-->
+                    <div class="row">
+                        <div class="col">
+                            <p class="my-0 mx-2">I have read, understand, and accept the
+                                <button type="button" class="btn btn-link p-0" (click)="openTermsDialog()" [disabled]="isSaving">
+                                    terms of agreement
+                                </button>.
+                            </p>
+                            <mat-checkbox #terms
+                                          class="my-0 mx-2 pb-0"
+                                          formControlName="terms"
+                                          required>
+                                I Agree <span class="themeAccent">*</span>
+                            </mat-checkbox>
+                            <mat-error class="mx-2 mt-0 pt-0" *ngIf="userForm.get('terms').hasError('required')
+                                                && userForm.get('firstName').touched">
+                                <small>Accepting terms is <strong>required</strong></small>
+                            </mat-error>
+                        </div>
+                    </div>
+
+                    <!--First Name-->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width register-input" appearance="outline">
+                                <mat-label>First Name</mat-label>
+                                <input #firstName
+                                       matInput
+                                       class=""
+                                       formControlName="firstName"
+                                       placeholder="Enter your first name"
+                                       [maxlength]="30"
+                                       required>
+                                <mat-hint align="end" aria-live="polite">
+                                    {{firstName.value.length}} / 30
+                                </mat-hint>
+                                <mat-error *ngIf="userForm.get('firstName').hasError('required')
+                                                && userForm.get('firstName').touched">
+                                    First name is <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="userForm.get('firstName').hasError('whitespace')
+                                                && userForm.get('firstName').touched">
+                                    Can not have whitespace only
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!--Last Name-->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width register-input" appearance="outline">
+                                <mat-label>Last Name</mat-label>
+                                <input #lastName
+                                       matInput
+                                       formControlName="lastName"
+                                       placeholder="Enter your last name"
+                                       [maxlength]="30"
+                                       required>
+                                <mat-hint align="end" aria-live="polite">
+                                    {{lastName.value.length}} / 30
+                                </mat-hint>
+                                <mat-error *ngIf="userForm.get('lastName').hasError('required')
+                                                && userForm.get('lastName').touched">
+                                    Last name is <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="userForm.get('lastName').hasError('whitespace')
+                                                && userForm.get('lastName').touched">
+                                    Can not have whitespace only
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!--Email-->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width register-input" appearance="outline">
+                                <mat-label>Email</mat-label>
+                                <input #email
+                                       matInput
+                                       formControlName="email"
+                                       placeholder="Enter your email"
+                                       [maxlength]="60"
+                                       (blur)="onEmailBlur()"
+                                       required>
+                                <mat-icon *ngIf="!emailIsChecked" matSuffix>email</mat-icon>
+                                <mat-icon *ngIf="emailIsChecked" matSuffix class="checkSuccess">check_circle</mat-icon>
+                                <mat-hint align="end" aria-live="polite">
+                                    {{email.value.length}} / 60
+                                </mat-hint>
+                                <mat-error
+                                        *ngIf="userForm.get('email').hasError('required') && userForm.get('email').touched">
+                                    Email is <strong>required</strong>
+                                </mat-error>
+                                <mat-error
+                                        *ngIf="userForm.get('email').hasError('email') && userForm.get('email').touched">
+                                    Email must have a valid email format
+                                </mat-error>
+                                <mat-error
+                                        *ngIf="userForm.get('email').hasError('checkEmail') && userForm.get('email').touched">
+                                    This email is not available to use at this time.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!--Username-->
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width register-input" appearance="outline">
+                                <mat-label>Username</mat-label>
+                                <input #username
+                                       matInput
+                                       formControlName="username"
+                                       placeholder="Enter a username"
+                                       [maxlength]="30"
+                                       (blur)="onUsernameBlur()"
+                                       required>
+                                <mat-icon *ngIf="usernameIsChecked" matSuffix class="checkSuccess">
+                                    check_circle
+                                </mat-icon>
+                                <mat-hint align="end" aria-live="polite">
+                                    {{username.value.length}} / 30
+                                </mat-hint>
+                                <mat-error *ngIf="userForm.get('username').hasError('required')
+                                                && userForm.get('username').touched">
+                                    Username is <strong>required</strong>
+                                </mat-error>
+                                <mat-error *ngIf="userForm.get('username').hasError('whitespace')
+                                                && userForm.get('username').touched">
+                                    Can not have whitespace only
+                                </mat-error>
+                                <mat-error
+                                        *ngIf="userForm.get('username').hasError('checkUsername') && userForm.get('username').touched">
+                                    This username is not available to use at this time.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!--Password-->
+                    <div formGroupName="setPassword">
+
+                        <!--New Password-->
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width register-input" appearance="outline">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput
+                                           #password
+                                           [type]="hidePassword ? 'password' : 'text'"
+                                           formControlName="newPassword"
+                                           placeholder="Enter a password"
+                                           (input)="toggleConfirmPassword()"
+                                           [maxlength]="30"
+                                           required>
+                                    <mat-icon matSuffix style="cursor:pointer;" (click)="hidePassword = !hidePassword">
+                                        {{hidePassword ? 'visibility_off' : 'visibility'}}
+                                    </mat-icon>
+                                    <mat-hint align="end" aria-live="polite">
+                                        {{password.value.length}} / {{passwordComponent1.max}}
+                                    </mat-hint>
+                                    <mat-error *ngIf="userForm.get('setPassword').get('newPassword').hasError('required')
+                                                    && userForm.get('setPassword').get('newPassword').touched">
+                                        Password is <strong>required</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="userForm.get('setPassword').get('newPassword').hasError('whitespace')
+                                                    && userForm.get('setPassword').get('newPassword').touched">
+                                        Can not have whitespace only
+                                    </mat-error>
+                                    <mat-error *ngIf="userForm.get('setPassword').get('newPassword').hasError('minlength')
+                                                    && userForm.get('setPassword').get('newPassword').touched">
+                                        Must have more than 8 characters
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!--Confirm Password-->
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="full-width register-input" appearance="outline">
+                                    <mat-label>Confirm Password</mat-label>
+                                    <input matInput
+                                           [type]="hidePassword ? 'password' : 'text'"
+                                           formControlName="confirmPassword"
+                                           placeholder="Re-enter your password"
+                                           (input)="toggleConfirmPassword()"
+                                           [maxlength]="30"
+                                           required>
+                                    <mat-icon *ngIf="userForm.get('setPassword').valid"
+                                              matSuffix
+                                              class="checkSuccess">
+                                        check_circle
+                                    </mat-icon>
+                                    <mat-error *ngIf="userForm.get('setPassword').get('confirmPassword').hasError('required')
+                                                    && userForm.get('setPassword').get('confirmPassword').touched">
+                                        Confirm Password is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <!--Error for password confirm match-->
+                        <div class="row">
+                            <div class="col">
+                                <mat-error *ngIf="userForm.get('setPassword').get('confirmPassword').touched
+                                                    && userForm.get('setPassword').hasError('nomatch')">
+                                    <small>New Password and Confirm Password must match</small>
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <!--Password strength toggle details-->
+                        <div class="row">
+                            <div class="col">
+                                <mat-slide-toggle #toggle1>Show password strength factors</mat-slide-toggle>
+                            </div>
+                        </div>
+
+                        <!--Password strength-->
+                        <div class="row">
+                            <div class="col">
+                                <!--@angular-material-extensions/password-strength's main component-->
+                                <mat-password-strength #passwordComponent1
+                                                       [enableDigitRule]="false"
+                                                       (onStrengthChanged)="onStrengthChanged($event)"
+                                                       [password]="password.value">
+                                </mat-password-strength>
+                                <!--Password's strength info-->
+                                <ng-container *ngIf="toggle1.checked">
+                                    <mat-password-strength-info [passwordComponent]="passwordComponent1">
+                                    </mat-password-strength-info>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button type="button" mat-button class="btn-width-1" (click)="onCancel()">Cancel</button>
+            <button type="button" class="btn btn-success btn-width-1 mx-1" (click)="onSubmit()"
+                    [disabled]="!canSubmit()">Submit
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+</div>

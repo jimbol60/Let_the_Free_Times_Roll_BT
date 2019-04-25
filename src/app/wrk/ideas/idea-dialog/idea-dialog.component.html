@@ -1,0 +1,41 @@
+<mat-dialog-content>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isSaving"></mat-progress-bar>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <P class="UID-font-style">{{ idea.UID }}</P>
+        <P class="UID-font-style">{{ idea.CreateDate }}</P>
+
+        <!--Summary-->
+        <mat-form-field class="full-width">
+            <input name="summary"
+                   formControlName="summary"
+                   matInput
+                   placeholder="Summary"/>
+        </mat-form-field>
+
+        <!--Detail-->
+        <mat-form-field class="full-width">
+            <textarea name="detail"
+                      formControlName="detail"
+                      matInput
+                      placeholder="Detail"
+                      rows="5">
+            </textarea>
+        </mat-form-field>
+
+        <!--Buttons-->
+        <mat-action-row>
+            <button type="submit" mat-button color="primary" [disabled]="!canSave()">
+                {{ isEditMode ? 'Update' : 'Save' }}
+            </button>
+            <button type="button" mat-button color="" (click)="onCancel()">Cancel</button>
+            <button mat-icon-button color="warn" (click)="onDelete()" [disabled]="!editMode">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-action-row>
+
+    </form>
+
+</mat-dialog-content>

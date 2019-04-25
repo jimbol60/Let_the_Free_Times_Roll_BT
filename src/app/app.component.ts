@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'gci-root',
+	templateUrl: './app.component.html',
+	styleUrls: [ './app.component.scss' ]
 })
-export class AppComponent {
-  title = 'Let The Free Times Roll';
-  date = new Date().getFullYear();
+export class AppComponent implements OnInit {
+	
+	public isLoading = true;
+	
+	public quickFieldsIsOpen = false;
+    
+	constructor() {}
+	
+	ngOnInit() {}
+    
+    public onToggleQuickFields() {
+        this.quickFieldsIsOpen = !this.quickFieldsIsOpen;
+	}
 }

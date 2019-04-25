@@ -1,0 +1,35 @@
+.register-container {
+  width: 100%;
+  //height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+.register-card {
+  width: 600px;
+  min-width: 400px;
+  //max-height: fit-content;
+}
+
+.register-card-header {
+  background-image: url('http://gcideas.com/img/gci_logo.png');
+  background-size: cover;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.register-input {
+}
+
+.checkSuccess {
+  color: #28a745;
+  background-color: transparent;
+}
+
+.themeAccent {
+  color: #ec407a;
+}

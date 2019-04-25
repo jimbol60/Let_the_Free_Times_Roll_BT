@@ -1,0 +1,14 @@
+<div *ngFor="let log of alertLog; let i = index" class="{{log.Type.style}}" role="alert">
+    <div class="vert-align-center">
+        <mat-icon mat-list-icon class="mr-3">{{log.Type.icon}}</mat-icon>
+        <div>
+            <p mat-line><b>{{log.Summary}}</b></p>
+            <p mat-line *ngIf="log.Detail">{{log.Detail}}</p>
+            <small mat-line> {{log.CreatedAt | date:'full'}} </small>
+        </div>
+    </div>
+    <button type="button" class="close ml-2" (click)="onDismiss(i)" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<hr>

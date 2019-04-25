@@ -1,0 +1,51 @@
+<h4 mat-dialog-title>
+    <span *ngIf="data.isEdit">Edit</span>
+    <span *ngIf="!data.isEdit">New</span>
+</h4>
+<div mat-dialog-content>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isSaving"></mat-progress-bar>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <P class="UID-font-style">{{ data.obj.UID }}</P>
+        <P class="UID-font-style">{{ data.obj.CreatedAt }}</P>
+
+        <!--Summary-->
+        <mat-form-field class="full-width">
+            <mat-label>Summary</mat-label>
+            <input name="summary"
+                   formControlName="summary"
+                   matInput
+                   placeholder="Enter a brief summary..."/>
+        </mat-form-field>
+
+        <!--Detail-->
+        <div class="form-group">
+            <mat-label>Detail</mat-label>
+            <quill-editor formControlName="detail"
+                          [style]="{height: '200px'}"
+                          [sanitize]="true"
+                          (onContentChanged)="editorChange($event)">
+            </quill-editor>
+            <textarea *ngIf="showEditorHTML"
+                      disabled
+                      class="form-control">
+                {{richTextHTML}}
+            </textarea>
+        </div>
+
+    </form>
+
+</div>
+
+<!--Buttons-->
+<div mat-dialog-actions>
+    <button type="button" mat-button color="primary" [disabled]="!canSave()" (click)="onSubmit()">
+        {{ data.isEdit ? 'Update' : 'Save' }}
+    </button>
+    <button type="button" mat-button color="" (click)="onCancel()">Cancel</button>
+    <button mat-icon-button color="warn" (click)="onDelete()" [disabled]="!data.isEdit">
+        <mat-icon>delete</mat-icon>
+    </button>
+</div>

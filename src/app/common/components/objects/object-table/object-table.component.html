@@ -1,0 +1,140 @@
+<div *ngIf="objects.length < 1" class="component-background">
+    {{msgList}}
+</div>
+
+<div class="component-background">
+
+
+    <div class="container-fluid">
+
+        <!--Filter-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pt-2">
+                    <div class="btn-group full-width">
+                        <input type="text"
+                               #tableFilter
+                               class="btn btn-outline btn-sm border border-right-0 filter text-left"
+                               (keyup)="applyFilter($event.target.value)"
+                               placeholder="Type to filter table...">
+                        <button type="button"
+                                class="btn btn-outline btn-sm border border-left-0"
+                                aria-label="Close"
+                                matTooltip="Clear table filter"
+                                (click)="onClearFilter()">
+                            <div class="vert-align-center">
+                                <i aria-hidden="true" class="material-icons">close</i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Table-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-container">
+                    <table mat-table
+                           [dataSource]="dataSource"
+                           class="table table-hover table-striped mat-table-custom"
+                           matSort>
+
+                        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns;">
+
+                            <!-- Select Column -->
+                            <div *ngIf="column == 'select'">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div class="vert-align-center">
+                                        <mat-checkbox (change)="$event ? masterToggle() : null;"
+                                                      [checked]="selection.hasValue() && isAllSelected()"
+                                                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                        </mat-checkbox>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                                  (change)="$event ? selection.toggle(row) : null;"
+                                                  [checked]="selection.isSelected(row)">
+                                    </mat-checkbox>
+                                </td>
+                            </div>
+
+                            <!--UID column-->
+                            <div *ngIf="column == 'UID'">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <div class="vert-align-center">{{column}}</div>
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{row[column]}}</td>
+                            </div>
+
+                            <!--Detail column-->
+                            <div *ngIf="column == 'Detail'">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <div class="vert-align-center">{{column}}</div>
+                                </th>
+                                <td mat-cell *matCellDef="let row" [innerHTML]="row[column] | keepHtml" (contextmenu)="onRightClick($event)"></td>
+                            </div>
+
+                            <div *ngIf="column == 'CreatedAt'">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <div class="vert-align-center">{{column}}</div>
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{row[column] | date:dateFormat}}</td>
+                            </div>
+
+                            <!--Other columns-->
+
+                            <!--<div *ngIf="!preconfigCols.includes(column)">--> <!--TODO GB20190226215942 For some reason, this was throwing an error, looks related to this: https://github.com/angular/angular/issues/27267-->
+                            <div *ngIf="column != 'select' && column != 'UID' && column != 'Detail' && column != 'CreatedAt'">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    <div class="vert-align-center">{{column}}</div>
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{row[column]}}</td>
+                            </div>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            [ngClass]="{ 'selected': selection.isSelected(row)}"
+                            (dblclick)="onDoubleClick(row)"
+                            (click)="onClick(row)"></tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--Add button-->
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button"
+                        class="btn btn-outline-success full-width btn-outline-custom border-0"
+                        (click)="onCreateNew()">
+                    <div class="vert-align-center">
+                        <i class="material-icons">add</i>
+                        <span class="ml-2">Add</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!--selection stats and pagination-->
+        <div class="row">
+
+            <!--Selection stats-->
+            <div class="col-md-4">
+                <small class="text-muted">{{objectsSelectedMsg}}</small>
+            </div>
+
+            <!--Pagination-->
+            <div class="col-md-8">
+                <mat-paginator [pageSizeOptions]="[5, 20, 50, 100]"
+                               [showFirstLastButtons]="true"
+                               class="mat-paginator-custom">
+                </mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>

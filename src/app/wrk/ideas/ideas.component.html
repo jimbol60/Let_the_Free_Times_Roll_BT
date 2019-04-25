@@ -1,0 +1,13 @@
+<!--Loading-->
+<div class="mt-3" *ngIf="isLoading">
+    <gci-loading-bar [loadingMessage]="'Loading Fields'"></gci-loading-bar>
+</div>
+
+<h4>List of Ideas</h4>
+
+<gci-object-table [objects]="ideas"
+                  [columnsToDisplay]="tableColumns"
+                  (createNew)="onAddObject()">
+</gci-object-table>
+
+<!--<gci-inv-ideas-table></gci-inv-ideas-table>-->

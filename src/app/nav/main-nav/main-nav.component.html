@@ -1,0 +1,96 @@
+<mat-toolbar *ngIf="isLoggedIn" color="primary" class="main-nav">
+
+    <mat-toolbar-row>
+        <button mat-icon-button (click)="onToggleSidenavStart()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="goToDashboard()">
+            <mat-icon>dashboard</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="onToggleQuickFields()">
+            <mat-icon matBadge="{{contextFieldCount}}">blur_on</mat-icon>
+        </button>
+
+        <span class="flex-fill"></span>
+
+        <button mat-icon-button [mat-menu-trigger-for]="userMenu">
+            <mat-icon>account_box</mat-icon>
+        </button>
+
+        <button mat-icon-button [mat-menu-trigger-for]="moreMenu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </mat-toolbar-row>
+
+</mat-toolbar>
+
+<mat-menu #userMenu="matMenu">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <button mat-menu-item (click)="onLogout()">
+                    <mat-icon>logout</mat-icon>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button mat-menu-item (click)="onProfile()">
+                    <mat-icon>account_box</mat-icon>
+                    <span>Profile</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</mat-menu>
+
+<mat-menu #moreMenu="matMenu">
+    <div class="container-fluid">
+        <div class="form-row">
+            <div class="col">
+                <button mat-menu-item>
+                    <mat-icon color="primary">settings</mat-icon>
+                    <span>Settings</span>
+                </button>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <button mat-menu-item>
+                    <mat-icon color="warn">bug_report</mat-icon>
+                    <span>Report an issue</span>
+                </button>
+            </div>
+        </div>
+        <ng-container *ngIf="!isProd">
+            <div class="form-row">
+                <div class="col">
+                    <button mat-menu-item (click)="onToggleSidenavEnd()">
+                        <mat-icon>build</mat-icon>
+                        <span>Alert Log</span>
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+        <hr>
+        <div class="form-row">
+            <div class="col-sm-4 text-right">
+                <small><b>app</b></small>
+            </div>
+            <div class="col-sm-8">
+                <small>{{title}}</small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-4 text-right">
+                <small><b>version</b></small>
+            </div>
+            <div class="col-sm-8">
+                <small>{{version}}</small>
+            </div>
+        </div>
+    </div>
+</mat-menu>

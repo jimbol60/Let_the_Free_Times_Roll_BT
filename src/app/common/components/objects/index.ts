@@ -1,0 +1,1 @@
+export { ObjectInterface } from './object.interface';
